@@ -1,0 +1,34 @@
+.fd-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 15rem;
+    height: 15rem;
+    background-color: #F9FAFB;
+    border-style: dashed;
+    border-width: 2px;
+    color: lightgray;
+    border-radius: 16px;
+}
+
+.description {
+    color: #374151;
+}
+
+.description p {
+    margin: 5px 0;
+}
+
+.light-text-m {
+    font-size: 14px;
+    color: #6B7280;
+}
+
+.text-s {
+    font-size: 10px;
+}
+
+.item-center {
+    align-items: center;
+}
