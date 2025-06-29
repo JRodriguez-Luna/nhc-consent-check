@@ -10,6 +10,7 @@
     border-width: 2px;
     color: lightgray;
     border-radius: 16px;
+    cursor: pointer;
 }
 
 .description {
@@ -27,6 +28,12 @@
 
 .text-s {
     font-size: 10px;
+}
+
+.browse-text {
+  text-decoration: underline;
+  cursor: pointer;
+  color: rgb(132, 132, 132);
 }
 
 .item-center {

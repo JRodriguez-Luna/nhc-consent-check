@@ -1,17 +1,30 @@
 import "./FileDropzone.css"
 import { Icon } from "./Icon"
-import { BrowseFile } from "./BrowseFile"
+import { useDropzone } from 'react-dropzone';
 
 export function FileDropzone() {
+    const { getRootProps, getInputProps, isDragActive } = useDropzone({
+        onDrop: files => console.log(files)
+    });
+
     return (
-        <div className="fd-container">
+        <div className="fd-container" {...getRootProps()}>
+            <input  {...getInputProps()} />
             <div className="column item-center">
                 <Icon variant="upload"/>
                 <div className="description">
-                    <p>Drag & Drop files here</p>
-                    <p className="text-m">or</p>
+                    {
+                        isDragActive ?
+                        <p>Drop File here...</p>
+                        :
+                        <>
+                            <p>Drag & Drop files here</p>
+                            <p className="light-text-m">or</p>
+                            <p className="browse-text">click to browse</p>
+                        </>
+    
+                    }
                 </div>
-                <BrowseFile>Browse File</BrowseFile>
                 <p className="text-s">Supports PDF, DOC, DOCX, JPG, PNG</p>
             </div>
         </div>
