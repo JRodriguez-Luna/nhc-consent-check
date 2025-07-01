@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./FileDropzone.css"
 import { Icon } from "./Icon"
 import { useDropzone } from 'react-dropzone';
@@ -6,15 +6,30 @@ import JSZip from "jszip";
 
 export function FileDropzone() {
     const [files, setFiles] = useState<File[]>();
-    const zip = new JSZip();
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
         onDrop: (files) => setFiles(files)
     });
 
-    const pdfFolder = zip.folder("Electronic Consents")
-    if (files !== undefined && files.length > 0) {
-        pdfFolder?.file(files[0].name, files[0])
-    }
+    useEffect(() => {
+        if (files !== undefined && files.length > 0) {
+            const zip = new JSZip();
+            const pdfFolder = zip.folder("Electronic Consents")
+
+            // Name the file and its content
+            files.map((file) => {
+                pdfFolder?.file(file.name, file)
+            })
+
+            // Generate and download the zip after adding files
+            zip.generateAsync({ type: "blob" }).then(content => {
+                const url = URL.createObjectURL(content);
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = "sorted_files.zip";
+                a.click();
+            });
+        }
+    }, [files])
 
     console.log('current Files:', files)
 
