@@ -1,6 +1,6 @@
 {
-  "name": "Hello Extensions of the world!",
-  "description": "Base Level Extension",
+  "name": "NHC Consent Check",
+  "description": "File Sorter for NHC",
   "version": "1.0",
   "manifest_version": 3,
   "action": {
