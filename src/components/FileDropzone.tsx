@@ -3,6 +3,7 @@ import "./FileDropzone.css"
 import { Icon } from "./Icon"
 import { useDropzone } from 'react-dropzone';
 import JSZip from "jszip";
+import { consentList } from '../../data'
 
 export function FileDropzone() {
     const [files, setFiles] = useState<File[]>();
@@ -13,12 +14,41 @@ export function FileDropzone() {
     useEffect(() => {
         if (files !== undefined && files.length > 0) {
             const zip = new JSZip();
-            const pdfFolder = zip.folder("Electronic Consents")
+            const ecFolder = zip.folder("Electronic Consents")
+            const roiFolder = zip.folder("ROI")
+            const unknownFolder = zip.folder("Unknown")
 
             // Name the file and its content
-            files.map((file) => {
-                pdfFolder?.file(file.name, file)
-            })
+            files.forEach(file => {
+                const normalizedFileName = file.name.toLowerCase().replace(/\.[^/.]+$/, ""); // remove extension
+
+                let matched = false;
+
+                // check EC
+                for (const consent of consentList.EC) {
+                    if (normalizedFileName.includes(consent.toLowerCase())) {
+                        ecFolder?.file(file.name, file);
+                        matched = true;
+                        break; // stop checking EC once found
+                    }
+                }
+
+                // check ROI only if not matched
+                if (!matched) {
+                    for (const roi of consentList.ROI) {
+                        if (normalizedFileName.includes(roi.toLowerCase())) {
+                            roiFolder?.file(file.name, file);
+                            matched = true;
+                            break;
+                        }
+                    }
+                }
+
+                // if still not matched
+                if (!matched) {
+                    unknownFolder?.file(file.name, file);
+                }
+            });
 
             // Generate and download the zip after adding files
             zip.generateAsync({ type: "blob" }).then(content => {
