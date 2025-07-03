@@ -41,3 +41,8 @@ export const consentList = {
 
     ]
 }
+
+// This checklist is based on commonly used document names for consent and release forms.
+// It does not include any client data or proprietary policy content.
+// Developed independently, not affiliated with or endorsed by Newport Healthcare.
+// If requested, this list will be modified or removed to respect any concerns.
