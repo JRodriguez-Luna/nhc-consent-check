@@ -1,0 +1,13 @@
+.circle {
+    width: 5rem;
+    height: 5rem;
+    background-color: #E4E7EB;
+    border-radius: 3.125rem;
+    position: relative;
+}
+
+.icon {
+    position: absolute;
+    top: calc(100% / 3);
+    left: calc(100% / 3.8);
+}
